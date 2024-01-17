@@ -46,13 +46,13 @@ public class ComercialController {
 
     }
 
-    @GetMapping("/fabricantes/crear")
+    @GetMapping("/comercial/crear")
     public String crear(Model model) {
 
-        Fabricante fabricante = new Fabricante();
-        model.addAttribute("fabricante", fabricante);
+        Comercial comercial = new Comercial();
+        model.addAttribute("comercial", comercial);
 
-        return "crear-fabricante";
+        return "crear-comercial";
 
     }
 
@@ -61,7 +61,7 @@ public class ComercialController {
 
         comercialService.newComercial(comercial);
 
-        return new RedirectView("/comercial") ;
+        return new RedirectView("/comerciales") ;
 
     }
 
@@ -84,7 +84,7 @@ public class ComercialController {
         return new RedirectView("/comerciales");
     }
 
-    @PostMapping("/fabricantes/borrar/{id}")
+    @PostMapping("/comerciales/borrar/{id}")
     public RedirectView submitBorrar(@PathVariable Integer id) {
 
         comercialService.deleteComercial(id);

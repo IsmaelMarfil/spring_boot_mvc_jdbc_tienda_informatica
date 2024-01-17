@@ -34,7 +34,7 @@ public class ComercialDaoImpl  implements ComercialDAO{
 
         List<Comercial> listCom = jdbcTemplate.query(
                 "SELECT * FROM comercial",
-                (rs, rowNum) -> new Comercial(rs.getInt("codigo"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getDouble("comisión"))
+                (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getDouble("comisión"))
         );
 
         return listCom;
@@ -48,8 +48,8 @@ public class ComercialDaoImpl  implements ComercialDAO{
     public Optional<Comercial> find(int id) {
 
         Comercial com =  jdbcTemplate
-                .queryForObject("SELECT * FROM comercial WHERE codigo = ?"
-                        , (rs, rowNum) -> new Comercial(rs.getInt("codigo"),rs.getString("nombre"))
+                .queryForObject("SELECT * FROM comercial WHERE id = ?"
+                        , (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"))
                         , id
                 );
 
@@ -65,18 +65,18 @@ public class ComercialDaoImpl  implements ComercialDAO{
     @Override
     public void update(Comercial comercial) {
 
-        int rows = jdbcTemplate.update("UPDATE comercial SET nombre = ?  WHERE codigo = ?", comercial.getNombre(), comercial.getId());
+        int rows = jdbcTemplate.update("UPDATE comercial SET nombre = ?  WHERE id = ?", comercial.getNombre(), comercial.getId());
         if (rows == 0) System.out.println("Update de comercial con 0 registros actualizados.");
 
     }
 
     /**
-     * Borra fabricante con ID proporcionado.
+     * Borra comercial con ID proporcionado.
      */
     @Override
     public void delete(int id) {
 
-        int rows = jdbcTemplate.update("DELETE FROM comercial WHERE codigo = ?", id);
+        int rows = jdbcTemplate.update("DELETE FROM comercial WHERE id = ?", id);
 
         if (rows == 0) System.out.println("Update de comercial con 0 registros actualizados.");
 
