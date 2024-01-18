@@ -46,7 +46,7 @@ public class ComercialController {
 
     }
 
-    @GetMapping("/comercial/crear")
+    @GetMapping("/comerciales/crear")
     public String crear(Model model) {
 
         Comercial comercial = new Comercial();
@@ -56,7 +56,7 @@ public class ComercialController {
 
     }
 
-    @PostMapping("/comercial/crear")
+    @PostMapping("/comerciales/crear")
     public RedirectView submitCrear(@ModelAttribute("comercial") Comercial comercial) {
 
         comercialService.newComercial(comercial);
@@ -65,7 +65,7 @@ public class ComercialController {
 
     }
 
-    @GetMapping("/comercial/editar/{id}")
+    @GetMapping("/comerciales/editar/{id}")
     public String editar(Model model, @PathVariable Integer id) {
 
         Comercial comercial = comercialService.one(id);
@@ -76,7 +76,7 @@ public class ComercialController {
     }
 
 
-    @PostMapping("/comercial/editar/{id}")
+    @PostMapping("/comerciales/editar/{id}")
     public RedirectView submitEditar(@ModelAttribute("comercial") Comercial comercial) {
 
         comercialService.replaceComercial(comercial);

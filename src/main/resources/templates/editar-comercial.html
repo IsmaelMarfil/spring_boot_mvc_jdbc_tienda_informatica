@@ -39,7 +39,7 @@
                 <label>Código</label>
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input th:field="*{id}" readonly="readonly"/>
+                <input th:field="*{id}" th:value="*{id}" type="hidden" readonly="readonly"/>
             </div>
         </div>
         <div style="margin-top: 6px;" class="clearfix">
@@ -48,6 +48,30 @@
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input th:field="*{nombre}"/>
+            </div>
+        </div>
+        <div style="margin-top: 6px;" class="clearfix">
+            <div style="float: left;width: 50%">
+                <label>Apellido 1</label>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{apellido1}"/>
+            </div>
+        </div>
+        <div style="margin-top: 6px;" class="clearfix">
+            <div style="float: left;width: 50%">
+                <label>Apellido2</label>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{apellido2}"/>
+            </div>
+        </div>
+        <div style="margin-top: 6px;" class="clearfix">
+            <div style="float: left;width: 50%">
+                <label>Comision</label>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{comisión}"/>
             </div>
         </div>
 

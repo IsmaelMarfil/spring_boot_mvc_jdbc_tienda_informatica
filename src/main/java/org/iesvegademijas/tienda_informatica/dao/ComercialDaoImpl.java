@@ -22,7 +22,7 @@ public class ComercialDaoImpl  implements ComercialDAO{
     @Override
     public synchronized void create(Comercial comercial) {
 
-        jdbcTemplate.update("INSERT INTO comercial (nombre) VALUES (?)",comercial.getNombre());
+        jdbcTemplate.update("INSERT INTO comercial (nombre, apellido1, apellido2, comisión) VALUES (?, ?, ?, ?)",comercial.getNombre(), comercial.getApellido1(), comercial.getApellido2(), comercial.getComisión());
 
     }
 
@@ -34,7 +34,7 @@ public class ComercialDaoImpl  implements ComercialDAO{
 
         List<Comercial> listCom = jdbcTemplate.query(
                 "SELECT * FROM comercial",
-                (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getDouble("comisión"))
+                (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getFloat("comisión"))
         );
 
         return listCom;
@@ -49,7 +49,7 @@ public class ComercialDaoImpl  implements ComercialDAO{
 
         Comercial com =  jdbcTemplate
                 .queryForObject("SELECT * FROM comercial WHERE id = ?"
-                        , (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"))
+                        , (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getFloat("comisión") )
                         , id
                 );
 
