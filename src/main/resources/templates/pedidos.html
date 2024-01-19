@@ -50,7 +50,7 @@
             <form th:action="@{/pedidos/__${pedido.id}__}" style="display: inline;">
                 <input type="submit" value="Ver Detalle" />
             </form>
-            <form th:action="@{/pedidos./editar/}+${pedido.id} " style="display: inline;">
+            <form th:action="@{/pedidos/editar/}+${pedido.id} " style="display: inline;">
                 <input type="submit" value="Editar" />
             </form>
             <form th:action="@{/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">

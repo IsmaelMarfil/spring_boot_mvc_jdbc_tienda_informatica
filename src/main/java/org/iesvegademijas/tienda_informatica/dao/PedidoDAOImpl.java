@@ -67,7 +67,7 @@ public class PedidoDAOImpl  implements PedidoDAO{
     @Override
     public void update(Pedido pedido) {
 
-        int rows = jdbcTemplate.update("UPDATE pedido SET nombre = ?  WHERE id = ?", pedido.getTotal(), pedido.getId());
+        int rows = jdbcTemplate.update("UPDATE pedido SET total = ?  WHERE id = ?", pedido.getTotal(), pedido.getId());
         if (rows == 0) System.out.println("Update de comercial con 0 registros actualizados.");
 
     }
