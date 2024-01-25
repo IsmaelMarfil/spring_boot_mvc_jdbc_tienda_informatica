@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editar pedido</title>
+    <title th:text="#{Editar_Pedido}"></title>
     <style>
         .clearfix::after {
             content: "";
@@ -18,12 +18,12 @@
     <form  th:action="@{/pedidos/editar/__${pedido.id}__}" th:object="${pedido}" method="post" >
         <div class="clearfix">
             <div style="float: left; width: 50%">
-                <h1>Editar Pedido</h1>
+                <h1 th:text="#{Editar_Pedido}"></h1>
             </div>
             <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 
                 <div style="position: absolute; left: 39%; top : 39%;">
-                    <input type="submit" value="Guardar" />
+                    <input type="submit" th:value="#{Guardar}" />
                 </div>
 
             </div>
@@ -36,7 +36,7 @@
 
         <div style="margin-top: 6px;" class="clearfix">
             <div style="float: left;width: 50%">
-                <label>Código</label>
+                <label th:text="#{codigo}"></label>
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input th:field="*{id}" th:value="*{id}" type="hidden" readonly="readonly"/>
@@ -44,7 +44,7 @@
         </div>
         <div style="margin-top: 6px;" class="clearfix">
             <div style="float: left;width: 50%">
-                <label>Pedido</label>
+                <label>Total</label>
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input th:field="*{total}"/>
@@ -52,7 +52,7 @@
         </div>
         <div style="margin-top: 6px;" class="clearfix">
             <div style="float: left;width: 50%">
-                <label> Fecha </label>
+                <label th:text="#{Fecha}"> </label>
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input th:field="*{fecha}"/>
@@ -60,7 +60,7 @@
         </div>
         <div style="margin-top: 6px;" class="clearfix">
             <div style="float: left;width: 50%">
-                <label>id cliente</label>
+                <label th:text="#{ID_Cliente}"></label>
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input th:field="*{idCliente}"/>
@@ -68,7 +68,7 @@
         </div>
         <div style="margin-top: 6px;" class="clearfix">
             <div style="float: left;width: 50%">
-                <label>id comercial</label>
+                <label th:text="#{ID_Comercial}"></label>
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input th:field="*{idComercial}"/>
