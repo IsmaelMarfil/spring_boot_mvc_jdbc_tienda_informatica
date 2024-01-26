@@ -35,7 +35,7 @@ public class PedidoDAOImpl  implements PedidoDAO{
     public List<Pedido> getAll() {
 
         List<Pedido> listPed = jdbcTemplate.query(
-                "SELECT * FROM pedido",
+                "SELECT * FROM pedido p left join cliente c where p.id_Cliente = c.id left join comercial co where p.id_Comercial = co.id",
                 (rs, rowNum) -> new Pedido(rs.getInt("id"),rs.getDouble("total"), rs.getDate("fecha"), rs.getInt("id_cliente"), rs.getInt("id_comercial"))
         );
 

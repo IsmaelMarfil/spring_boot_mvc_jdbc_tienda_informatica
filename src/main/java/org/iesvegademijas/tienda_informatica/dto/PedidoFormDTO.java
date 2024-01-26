@@ -1,4 +1,4 @@
-package dto;
+package org.iesvegademijas.tienda_informatica.dto;
 
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -30,4 +30,8 @@ public class PedidoFormDTO {
     private int idCliente;
     @Min(value=1, message = "{msg.valid.min}")
     private int idComercial;
+    @DecimalMin(value = "0.0")
+    private double media;
+    @DecimalMin(value = "0.0")
+    private double suma;
 }
