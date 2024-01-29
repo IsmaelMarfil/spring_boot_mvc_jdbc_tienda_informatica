@@ -25,7 +25,7 @@
             <div style="position: absolute; left: 39%; top : 39%;">
 
                 <form action="/pedidos/crear">
-                    <input type="submit" th:value="#{Crear}">
+                    <input class="btn btn-primary" type="submit" th:value="#{Crear}">
                 </form>
             </div>
 
@@ -48,13 +48,13 @@
         <div style="float: left;width: 33%" th:text="${pedido.total}">Total</div>
         <div style="float: none;width: auto;overflow: hidden;">
             <form th:action="@{/pedidos/__${pedido.id}__}" style="display: inline;">
-                <input type="submit" th:value="#{Ver_Detalle}" />
+                <input class="btn btn-primary" type="submit" th:value="#{Ver_Detalle}" />
             </form>
             <form th:action="@{/pedidos/editar/}+${pedido.id} " style="display: inline;">
-                <input type="submit" th:value="#{Editar}" />
+                <input class="btn btn-primary" type="submit" th:value="#{Editar}" />
             </form>
             <form th:action="@{/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">
-                <input type="submit" th:value="#{Eliminar}" />
+                <input class="btn btn-primary" type="submit" th:value="#{Eliminar}" />
             </form>
         </div>
     </div>
