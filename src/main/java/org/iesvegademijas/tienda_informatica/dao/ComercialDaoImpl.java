@@ -34,7 +34,7 @@ public class ComercialDaoImpl  implements ComercialDAO{
 
         List<Comercial> listCom = jdbcTemplate.query(
                 "SELECT * FROM comercial",
-                (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getFloat("comisión"))
+                (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getBigDecimal("comisión"))
         );
 
         return listCom;
@@ -49,7 +49,7 @@ public class ComercialDaoImpl  implements ComercialDAO{
 
         Comercial com =  jdbcTemplate
                 .queryForObject("SELECT * FROM comercial WHERE id = ?"
-                        , (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getFloat("comisión") )
+                        , (rs, rowNum) -> new Comercial(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getBigDecimal("comisión") )
                         , id
                 );
 
@@ -65,7 +65,7 @@ public class ComercialDaoImpl  implements ComercialDAO{
     @Override
     public void update(Comercial comercial) {
 
-        int rows = jdbcTemplate.update("UPDATE comercial SET nombre = ?  WHERE id = ?", comercial.getNombre(), comercial.getId());
+        int rows = jdbcTemplate.update("UPDATE comercial SET nombre = ?, apellido1 = ?, apellido2 = ?, comisión = ?  WHERE id = ?", comercial.getNombre(), comercial.getApellido1(), comercial.getApellido2(), comercial.getComisión(),   comercial.getId());
         if (rows == 0) System.out.println("Update de comercial con 0 registros actualizados.");
 
     }

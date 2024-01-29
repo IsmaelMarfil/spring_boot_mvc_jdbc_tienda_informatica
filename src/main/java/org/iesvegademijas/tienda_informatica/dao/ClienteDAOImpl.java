@@ -66,7 +66,7 @@ public class ClienteDAOImpl  implements ClienteDAO{
     @Override
     public void update(Cliente cliente) {
 
-        int rows = jdbcTemplate.update("UPDATE cliente SET nombre = ?  WHERE id = ?", cliente.getNombre(), cliente.getId());
+        int rows = jdbcTemplate.update("UPDATE cliente SET nombre = ?, apellido1 = ?, apellido2 = ?, ciudad = ?, categoría = ?  WHERE id = ?", cliente.getNombre(),cliente.getApellido1(), cliente.getApellido2(), cliente.getCiudad(), cliente.getCategoría(), cliente.getId());
         if (rows == 0) System.out.println("Update de comercial con 0 registros actualizados.");
 
     }

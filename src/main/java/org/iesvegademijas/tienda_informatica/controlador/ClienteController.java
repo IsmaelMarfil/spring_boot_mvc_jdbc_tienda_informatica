@@ -2,6 +2,7 @@ package org.iesvegademijas.tienda_informatica.controlador;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.iesvegademijas.tienda_informatica.modelo.Cliente;
 import org.iesvegademijas.tienda_informatica.modelo.Comercial;
 import org.iesvegademijas.tienda_informatica.modelo.Fabricante;
@@ -11,6 +12,7 @@ import org.iesvegademijas.tienda_informatica.servicio.FabricanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,11 +61,14 @@ public class ClienteController {
     }
 
     @PostMapping("/clientes/crear")
-    public RedirectView submitCrear(@ModelAttribute("cliente") Cliente cliente) {
+    public String submitCrear(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult bindingResult, Model model) {
 
+      if(bindingResult.hasErrors()){
+          model.addAttribute("cliente", cliente);
+          return "crear-cliente";
+      }
         clienteService.newCliente(cliente);
-
-        return new RedirectView("/clientes") ;
+      return "redirect:/clientes?newClienteID=" + cliente.getId();
 
     }
 
@@ -79,12 +84,17 @@ public class ClienteController {
 
 
     @PostMapping("/clientes/editar/{id}")
-    public RedirectView submitEditar(@ModelAttribute("cliente") Cliente cliente) {
+    public String submitEditar(@Valid @ModelAttribute("cliente") Cliente cliente,BindingResult bindingResult, Model model) {
 
+        if(bindingResult.hasErrors()){
+            model.addAttribute("cliente", cliente);
+            return "editar-cliente";
+        }
         clienteService.replaceCliente(cliente);
+        return "redirect:/clientes?newClienteID=" + cliente.getId();
 
-        return new RedirectView("/clientes");
     }
+
 
     @PostMapping("/clientes/borrar/{id}")
     public RedirectView submitBorrar(@PathVariable Integer id) {
