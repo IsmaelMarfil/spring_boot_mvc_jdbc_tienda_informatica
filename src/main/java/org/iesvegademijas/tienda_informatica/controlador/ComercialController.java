@@ -5,8 +5,10 @@ import java.util.List;
 import jakarta.validation.Valid;
 import org.iesvegademijas.tienda_informatica.modelo.Comercial;
 import org.iesvegademijas.tienda_informatica.modelo.Fabricante;
+import org.iesvegademijas.tienda_informatica.modelo.Pedido;
 import org.iesvegademijas.tienda_informatica.servicio.ComercialService;
 import org.iesvegademijas.tienda_informatica.servicio.FabricanteService;
+import org.iesvegademijas.tienda_informatica.servicio.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ public class ComercialController {
 
     @Autowired
     private ComercialService comercialService;
+    @Autowired
+    private PedidoService pedidoService;
 
     @GetMapping("/comerciales")
     public String listar(Model model) {
@@ -40,9 +44,10 @@ public class ComercialController {
 
     @GetMapping("/comerciales/{id}")
     public String detalle(Model model, @PathVariable Integer id ) {
-
+        List<Pedido> pedidos = pedidoService.devolverListaPedidos(id);
         Comercial comercial = comercialService.one(id);
         model.addAttribute("comercial", comercial);
+        model.addAttribute("listaPedidos", pedidos);
 
         return "detalle-comercial";
 

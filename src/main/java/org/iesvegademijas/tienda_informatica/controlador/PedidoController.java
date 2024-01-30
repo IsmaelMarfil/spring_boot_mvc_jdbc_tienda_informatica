@@ -46,6 +46,7 @@ public class PedidoController {
         Pedido pedido = pedidoService.one(id);
         model.addAttribute("pedido", pedido);
 
+
         return "detalle-pedido";
 
     }

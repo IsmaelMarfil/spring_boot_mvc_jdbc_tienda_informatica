@@ -3,10 +3,7 @@ package org.iesvegademijas.tienda_informatica.servicio;
 import java.util.List;
 import java.util.Optional;
 
-import org.iesvegademijas.tienda_informatica.dao.ClienteDAO;
-import org.iesvegademijas.tienda_informatica.dao.ComercialDAO;
-import org.iesvegademijas.tienda_informatica.dao.FabricanteDAO;
-import org.iesvegademijas.tienda_informatica.dao.PedidoDAO;
+import org.iesvegademijas.tienda_informatica.dao.*;
 import org.iesvegademijas.tienda_informatica.modelo.Cliente;
 import org.iesvegademijas.tienda_informatica.modelo.Comercial;
 import org.iesvegademijas.tienda_informatica.modelo.Fabricante;
@@ -50,6 +47,9 @@ public class PedidoService {
 
         pedidoDAO.delete(id);
 
+    }
+    public List<Pedido> devolverListaPedidos(int id){
+        return pedidoDAO.listaPedidosIdComercial(id);
     }
 
 }

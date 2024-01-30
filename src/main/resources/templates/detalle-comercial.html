@@ -76,6 +76,10 @@
         </div>
     </div>
 </div>
+<div  th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
+    <div th:text="${pedido.getId()}"></div>
+    <div th:text="${pedido.getTotal()}"></div>
+</div>
 
 </body>
 </html>

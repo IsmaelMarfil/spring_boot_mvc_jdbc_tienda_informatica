@@ -83,5 +83,12 @@ public class PedidoDAOImpl  implements PedidoDAO{
         if (rows == 0) System.out.println("Update de comercial con 0 registros actualizados.");
 
     }
+    @Override
+    public List<Pedido> listaPedidosIdComercial(int id){
+        List<Pedido> pedidos = jdbcTemplate.query("""
+                SELECT * FROM Pedido p left join cliente c on p.id_cliente = c.id left join comercial co on p.id_comercial = co.id where p.id_comercial = ?
+                """, (rs, rowNum) -> UtilDAO.newPedido(rs), id);
+        return pedidos;
+    }
 
 }
