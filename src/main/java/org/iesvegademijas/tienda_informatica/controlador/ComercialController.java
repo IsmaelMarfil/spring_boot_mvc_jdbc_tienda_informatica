@@ -45,9 +45,11 @@ public class ComercialController {
     @GetMapping("/comerciales/{id}")
     public String detalle(Model model, @PathVariable Integer id ) {
         List<Pedido> pedidos = pedidoService.devolverListaPedidos(id);
+        Double media = pedidoService.media(id);
         Comercial comercial = comercialService.one(id);
         model.addAttribute("comercial", comercial);
         model.addAttribute("listaPedidos", pedidos);
+        model.addAttribute("media", media);
 
         return "detalle-comercial";
 

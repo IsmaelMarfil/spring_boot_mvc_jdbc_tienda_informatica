@@ -77,9 +77,13 @@
     </div>
 </div>
 <div  th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
+    <p>ID</p>
     <div th:text="${pedido.getId()}"></div>
+    <p>Total</p>
     <div th:text="${pedido.getTotal()}"></div>
 </div>
+<p>Media</p>
+ <div th:text="${media}"></div>
 
 </body>
 </html>

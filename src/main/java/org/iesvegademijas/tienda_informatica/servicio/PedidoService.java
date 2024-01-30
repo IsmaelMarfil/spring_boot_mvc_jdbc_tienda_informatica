@@ -1,7 +1,9 @@
 package org.iesvegademijas.tienda_informatica.servicio;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
 import org.iesvegademijas.tienda_informatica.dao.*;
 import org.iesvegademijas.tienda_informatica.modelo.Cliente;
@@ -49,7 +51,15 @@ public class PedidoService {
 
     }
     public List<Pedido> devolverListaPedidos(int id){
-        return pedidoDAO.listaPedidosIdComercial(id);
+        List<Pedido> pedidosOrdenados = pedidoDAO.listaPedidosIdComercial(id).stream()
+                .sorted(Comparator.comparing(pedido -> pedido.getTotal())).toList();
+        return pedidosOrdenados ;
     }
+    public double media(int id){
+        OptionalDouble mediaOpt = pedidoDAO.listaPedidosIdComercial(id).stream()
+                .mapToDouble(Pedido::getTotal).average();
+        return mediaOpt.getAsDouble();
+    }
+
 
 }
