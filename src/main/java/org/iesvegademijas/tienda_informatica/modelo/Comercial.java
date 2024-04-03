@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Comercial {
     private int id;
     @NotNull(message = "No puede ser nulo")
@@ -25,6 +24,22 @@ public class Comercial {
     @DecimalMin(value = "0.276", message = "Debe ser mayor a  0.276")
     @DecimalMax(value = "0.946", message = "Debe ser menor a  0.946")
     private BigDecimal comisión;
+    public int conteoUltimoTrimestre;
+    public int conteoUltimoSemestre;
+    public int conteoUltimoAnio;
+    public int conteoUltimoLustro;
+    public Comercial(){
+
+    }
+
+
+    public Comercial(int id, String nombre, String apellido1, String apellido2, BigDecimal comision) {
+        this.id=id;
+        this.nombre=nombre;
+        this.apellido1=apellido1;
+        this.apellido2=apellido2;
+        this.comisión=comision;
+    }
 
 }
 

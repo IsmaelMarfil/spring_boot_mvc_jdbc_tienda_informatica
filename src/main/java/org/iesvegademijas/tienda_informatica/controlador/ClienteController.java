@@ -30,6 +30,7 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+
     @GetMapping("/clientes")
     public String listar(Model model) {
 
@@ -44,9 +45,31 @@ public class ClienteController {
     public String detalle(Model model, @PathVariable Integer id ) {
 
         Cliente cliente = clienteService.one(id);
+
         model.addAttribute("cliente", cliente);
 
+        List<Comercial> comerciales = clienteService.listadoComerciales(id);
+
+        // Mapear la lista de comerciales a una lista de ComercialDTO
+        int conteotrimestre =clienteService.calcularConteoPedidosUltimoTrimestre(cliente);
+
+        model.addAttribute("conteoUltimoTrimestre", conteotrimestre);
+        int conteoSemestre=clienteService.calcularConteoPedidosUltimoSemestre(cliente);
+
+        model.addAttribute("conteoUltimoSemestre", conteoSemestre);
+
+        int conteoAnio =clienteService.calcularConteoPedidosUltimoAnio(cliente);
+
+        model.addAttribute("conteoUltimoAnio", conteoAnio);
+        int conteoLustro =clienteService.calcularConteoPedidosUltimoLustro(cliente);
+
+        model.addAttribute("conteoUltimoLustro", conteoLustro);
+
+        // Agregar la lista de comerciales al modelo
+        model.addAttribute("comerciales", comerciales);
+
         return "detalle-cliente";
+
 
     }
 

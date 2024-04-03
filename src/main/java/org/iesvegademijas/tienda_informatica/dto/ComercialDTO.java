@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ComercialDTO {
     private int id;
@@ -25,4 +26,8 @@ public class ComercialDTO {
     @NotNull
     @NotBlank
     private int cantidadPedidos;
+
+    private List<ComercialDTO> comerciales;
+
+
 }

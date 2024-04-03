@@ -17,4 +17,14 @@ public interface ClienteDAO {
 
     public void delete(int id);
 
+    List<Comercial> getAllByCliente(int id);
+
+    int conteoUltimoTrimestre(Cliente cliente);
+
+    int conteoUltimoSemestre(Cliente cliente);
+
+    int conteoUltimoAnio(Cliente cliente);
+
+    int conteoUltimoLustro(Cliente cliente);
+
 }

@@ -49,5 +49,24 @@ public class ClienteService {
         clienteDAO.delete(id);
 
     }
+    public List<Comercial> listadoComerciales(int id){
+        return clienteDAO.getAllByCliente(id);
+    }
+    public int calcularConteoPedidosUltimoTrimestre(Cliente cliente) {
+        return clienteDAO.conteoUltimoTrimestre(cliente);
+    }
+
+    public int calcularConteoPedidosUltimoSemestre(Cliente cliente) {
+        return clienteDAO.conteoUltimoSemestre(cliente);
+    }
+
+    public int calcularConteoPedidosUltimoAnio(Cliente cliente) {
+        return clienteDAO.conteoUltimoAnio(cliente);
+    }
+
+    public int calcularConteoPedidosUltimoLustro(Cliente cliente) {
+        return clienteDAO.conteoUltimoLustro(cliente);
+    }
+
 
 }
