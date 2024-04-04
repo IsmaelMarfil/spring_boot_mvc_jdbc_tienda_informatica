@@ -3,6 +3,8 @@ package org.iesvegademijas.tienda_informatica.controlador;
 import java.util.List;
 
 import jakarta.validation.Valid;
+import org.iesvegademijas.tienda_informatica.dao.ClienteDAO;
+import org.iesvegademijas.tienda_informatica.dao.ClienteDAOImpl;
 import org.iesvegademijas.tienda_informatica.modelo.Cliente;
 import org.iesvegademijas.tienda_informatica.modelo.Comercial;
 import org.iesvegademijas.tienda_informatica.modelo.Fabricante;
@@ -54,6 +56,7 @@ public class ClienteController {
         int conteotrimestre =clienteService.calcularConteoPedidosUltimoTrimestre(cliente);
 
         model.addAttribute("conteoUltimoTrimestre", conteotrimestre);
+
         int conteoSemestre=clienteService.calcularConteoPedidosUltimoSemestre(cliente);
 
         model.addAttribute("conteoUltimoSemestre", conteoSemestre);

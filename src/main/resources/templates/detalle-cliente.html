@@ -100,7 +100,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="comercial : ${cliente.comerciales}">
+            <tr th:each="comercial : ${comerciales}">
                 <td th:text="${comercial.nombre}"></td>
                 <td th:text="${comercial.getApellido1()}"></td>
                 <td th:text="${comercial.getComisión()}"></td>

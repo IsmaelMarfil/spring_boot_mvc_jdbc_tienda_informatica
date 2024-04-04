@@ -50,7 +50,7 @@ public class ClienteDAOImpl  implements ClienteDAO{
     public Optional<Cliente> find(int id) {
 
         Cliente cli =  jdbcTemplate
-                .queryForObject("SELECT * FROM cliente c join comercial com WHERE id = ?"
+                .queryForObject("SELECT * FROM cliente c WHERE c.id = ?"
                         , (rs, rowNum) -> new Cliente(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getString("ciudad"), rs.getInt("categoría") )
                         , id
                 );
@@ -68,7 +68,7 @@ public class ClienteDAOImpl  implements ClienteDAO{
     public void update(Cliente cliente) {
 
         int rows = jdbcTemplate.update("UPDATE cliente SET nombre = ?, apellido1 = ?, apellido2 = ?, ciudad = ?, categoría = ?  WHERE id = ?", cliente.getNombre(),cliente.getApellido1(), cliente.getApellido2(), cliente.getCiudad(), cliente.getCategoría(), cliente.getId());
-        if (rows == 0) System.out.println("Update de comercial con 0 registros actualizados.");
+        if (rows == 0) System.out.println("Update de cliente con 0 registros actualizados.");
 
     }
 
@@ -87,11 +87,12 @@ public class ClienteDAOImpl  implements ClienteDAO{
     @Override
     public List<Comercial> getAllByCliente(int id) {
         String sql = """
-            SELECT c.*
-            FROM cliente cl
-            left JOIN pedido p ON cl.id = p.id_cliente
-            left JOIN comercial c ON p.id_comercial = c.id
-            WHERE cl.id = ?    
+          SELECT DISTINCT c.*
+          FROM cliente cl
+          LEFT JOIN pedido p ON cl.id = p.id_cliente
+          LEFT JOIN comercial c ON p.id_comercial = c.id
+          WHERE cl.id = ?
+          
         """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
@@ -108,36 +109,56 @@ public class ClienteDAOImpl  implements ClienteDAO{
 
     @Override
     public int conteoUltimoTrimestre(Cliente  cliente) {
-        LocalDate fechaInicio = LocalDate.now().minusMonths(3);
 
-        String sql = "SELECT COUNT(*) FROM pedido JOIN ventas.comercial c on c.id = pedido.id_comercial WHERE id_cliente = ? AND fecha >= ?";
+        String sql = """
+                SELECT COUNT(*)
+                FROM pedido
+                JOIN comercial  ON comercial.id = pedido.id_comercial
+                WHERE id_cliente = ?
+                AND fecha >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+                """;
 
-        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId(), fechaInicio);
+        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
     }
 
     @Override
     public int conteoUltimoSemestre(Cliente cliente) {
-        LocalDate fechaInicio = LocalDate.now().minusMonths(6);
 
-        String sql = "SELECT COUNT(*) FROM pedido JOIN ventas.comercial c on c.id = pedido.id_comercial WHERE id_cliente = ? AND fecha >= ?";
+        String sql = """
+                SELECT COUNT(*)
+                FROM pedido
+                JOIN comercial  ON comercial.id = pedido.id_comercial
+                WHERE id_cliente = ?
+                AND fecha >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+                """;
 
-        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId(), fechaInicio);
+        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
     }
 
     @Override
     public int conteoUltimoAnio(Cliente cliente) {
-        LocalDate fechaInicio = LocalDate.now().minusYears(1);
 
-        String sql = "SELECT COUNT(*) FROM pedido WHERE id_cliente = ? AND fecha >= DATE_SUB(NOW(), INTERVAL 5 YEAR);";
+        String sql = """
+                SELECT COUNT(*)
+                FROM pedido
+                JOIN comercial ON comercial.id = pedido.id_comercial
+                WHERE id_cliente = ?
+                AND fecha >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+                """;
 
         return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
     }
 
     @Override
     public int conteoUltimoLustro(Cliente cliente) {
-        LocalDate fechaInicio = LocalDate.now().minusYears(5);
 
-        String sql = "SELECT COUNT(*) FROM pedido WHERE id_cliente = ? AND fecha >= DATE_SUB(NOW(), INTERVAL 5 YEAR);";
+        String sql = """
+                SELECT COUNT(*)
+                FROM pedido
+                JOIN comercial ON comercial.id = pedido.id_comercial
+                WHERE id_cliente = ?
+                AND fecha >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR)
+                """;
 
         return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
     }
