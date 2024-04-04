@@ -77,12 +77,24 @@
         </div>
     </div>
 </div>
-<div  th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
-    <p>ID</p>
-    <div th:text="${pedido.getId()}"></div>
-    <p>Total</p>
-    <div th:text="${pedido.getTotal()}"></div>
+<div style="margin-top: 20px;" class="clearfix">
+    <h3>Pedidos del Comercial</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pedido : ${listaPedidos}">
+            <td th:text="${pedido.id}"></td>
+            <td th:text="${pedido.total}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+
 <p>Media</p>
  <div th:text="${media}"></div>
 

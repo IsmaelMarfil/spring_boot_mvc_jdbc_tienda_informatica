@@ -35,7 +35,12 @@ public class PedidoDAOImpl  implements PedidoDAO{
     public List<Pedido> getAll() {
 
         List<Pedido> listPed = jdbcTemplate.query(
-                "SELECT * FROM pedido p left join cliente c where p.id_Cliente = c.id left join comercial co where p.id_Comercial = co.id",
+                """ 
+                        SELECT * 
+                        FROM pedido p
+                        LEFT JOIN cliente c ON p.id_cliente = c.id
+                        LEFT JOIN comercial co ON p.id_comercial = co.id
+                        """,
                 (rs, rowNum) -> new Pedido(rs.getInt("id"),rs.getDouble("total"), rs.getDate("fecha"), rs.getInt("id_cliente"), rs.getInt("id_comercial"))
         );
 
@@ -86,7 +91,7 @@ public class PedidoDAOImpl  implements PedidoDAO{
     @Override
     public List<Pedido> listaPedidosIdComercial(int id){
         List<Pedido> pedidos = jdbcTemplate.query("""
-                SELECT * FROM Pedido p left join cliente c on p.id_cliente = c.id left join comercial co on p.id_comercial = co.id where p.id_comercial = ?
+                SELECT * FROM pedido p left join cliente c on p.id_cliente = c.id left join comercial co on p.id_comercial = co.id where p.id_comercial = ?
                 """, (rs, rowNum) -> UtilDAO.newPedido(rs), id);
         return pedidos;
     }
