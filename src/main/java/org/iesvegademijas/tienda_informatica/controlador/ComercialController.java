@@ -3,9 +3,11 @@ package org.iesvegademijas.tienda_informatica.controlador;
 import java.util.List;
 
 import jakarta.validation.Valid;
+import org.iesvegademijas.tienda_informatica.modelo.Cliente;
 import org.iesvegademijas.tienda_informatica.modelo.Comercial;
 import org.iesvegademijas.tienda_informatica.modelo.Fabricante;
 import org.iesvegademijas.tienda_informatica.modelo.Pedido;
+import org.iesvegademijas.tienda_informatica.servicio.ClienteService;
 import org.iesvegademijas.tienda_informatica.servicio.ComercialService;
 import org.iesvegademijas.tienda_informatica.servicio.FabricanteService;
 import org.iesvegademijas.tienda_informatica.servicio.PedidoService;
@@ -31,6 +33,8 @@ public class ComercialController {
     private ComercialService comercialService;
     @Autowired
     private PedidoService pedidoService;
+    @Autowired
+   private ClienteService clienteService;
 
     @GetMapping("/comerciales")
     public String listar(Model model) {
@@ -47,9 +51,14 @@ public class ComercialController {
         List<Pedido> pedidos = pedidoService.devolverListaPedidos(id);
         Double media = pedidoService.media(id);
         Comercial comercial = comercialService.one(id);
+        List<Cliente> clientes = clienteService.listAllOrdPorTotal();
+        List<Double> sumas = clienteService.sumasOrdenadas();
         model.addAttribute("comercial", comercial);
         model.addAttribute("listaPedidos", pedidos);
         model.addAttribute("media", media);
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("sumas", sumas);
+
 
         return "detalle-comercial";
 

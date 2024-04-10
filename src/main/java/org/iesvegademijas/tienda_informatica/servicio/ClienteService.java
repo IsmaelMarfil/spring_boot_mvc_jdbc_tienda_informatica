@@ -23,6 +23,12 @@ public class ClienteService {
         return clienteDAO.getAll();
 
     }
+    public List<Cliente> listAllOrdPorTotal(){
+        return clienteDAO.getAllOrd();
+    }
+    public List<Double> sumasOrdenadas(){
+        return clienteDAO.getAllSuma();
+    }
 
     public Cliente one(Integer id) {
         Optional<Cliente> optCli= clienteDAO.find(id);

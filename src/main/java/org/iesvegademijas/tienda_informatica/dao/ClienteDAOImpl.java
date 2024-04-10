@@ -42,6 +42,35 @@ public class ClienteDAOImpl  implements ClienteDAO{
         return listCli;
 
     }
+    @Override
+    public List<Cliente> getAllOrd() {
+        List<Cliente> listCli = jdbcTemplate.query(
+                """
+
+SELECT c.*, COALESCE(SUM(p.total), 0) AS total
+FROM cliente c
+LEFT JOIN pedido p ON c.id = p.id_cliente
+GROUP BY c.id
+ORDER BY total DESC;
+""",
+                (rs, rowNum) -> new Cliente(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getString("ciudad"), rs.getInt("categoría"))
+        );
+        return listCli;
+    }
+@Override
+    public List<Double> getAllSuma(){
+        List<Double> listsumas = jdbcTemplate.query(
+                """
+                        SELECT id_cliente, SUM(totaL) AS total
+                        FROM pedido
+                        GROUP BY id_cliente
+                        ORDER BY total DESC;
+                        """,
+                 (rs, rowNum) -> (rs.getDouble("total"))
+        );
+
+        return listsumas;
+    }
 
     /**
      * Devuelve Optional de fabricante con el ID dado.

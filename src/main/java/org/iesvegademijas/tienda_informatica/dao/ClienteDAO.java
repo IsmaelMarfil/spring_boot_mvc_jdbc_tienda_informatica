@@ -19,6 +19,10 @@ public interface ClienteDAO {
 
     List<Comercial> getAllByCliente(int id);
 
+    List<Cliente> getAllOrd();
+
+    List<Double> getAllSuma();
+
     int conteoUltimoTrimestre(Cliente cliente);
 
     int conteoUltimoSemestre(Cliente cliente);
